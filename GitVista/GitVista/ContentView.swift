@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  GitVista
-//
-//  Created by Pablo Castro on 13/12/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -17,8 +10,4 @@ struct ContentView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
