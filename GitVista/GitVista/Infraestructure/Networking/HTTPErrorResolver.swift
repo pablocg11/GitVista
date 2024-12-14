@@ -2,18 +2,38 @@ import Foundation
 
 class HTTPErrorsResolver {
     func resolve(errorCode: Int) -> HTTPClientError {
-        guard errorCode != 429 else {
-            return .tooManyRequest
+        switch errorCode {
+        case 200..<300:
+            return .generic
+        case 400..<500:
+            if errorCode == 429 {
+                return .tooManyRequest
+            } else {
+                return .clientError
+            }
+        case 500..<600:
+            return .serverError
+        default:
+            return .responseError
         }
-        
-        guard errorCode < 500 else {
-            return .clientError
-        }
-                
-        return .serverError
     }
     
     func resolve(error: Error) -> HTTPClientError {
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .badURL:
+                return .badURL
+            case .timedOut:
+                return .responseError
+            case .cannotFindHost, .cannotConnectToHost:
+                return .clientError
+            case .networkConnectionLost, .notConnectedToInternet:
+                return .serverError
+            default:
+                return .generic
+            }
+        }
+        
         return .generic
     }
 }

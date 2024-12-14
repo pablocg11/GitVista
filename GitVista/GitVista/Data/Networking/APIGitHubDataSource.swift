@@ -22,19 +22,13 @@ final class APIGitHubDataSource: APIGitHubDataSourceProtocol {
         switch response {
         case .success(let data):
             do {
-                let repositories = try JSONDecoder().decode([RepositoryDTO].self, from: data)
-                return .success(repositories)
+                let repositoriesDTO = try JSONDecoder().decode([RepositoryDTO].self, from: data)
+                return .success(repositoriesDTO)
             } catch {
                 return .failure(.parsingError)
             }
         case .failure(let error):
             return .failure(error)
         }
-    }
-    
-    private func handleError(error: HTTPClientError?) -> HTTPClientError {
-        guard let error = error else { return .generic }
-        
-        return error
     }
 }

@@ -7,5 +7,6 @@ enum HTTPClientError: Error {
     case parsingError
     case tooManyRequest
     case badURL
+    case emptyData
     case responseError
 }
