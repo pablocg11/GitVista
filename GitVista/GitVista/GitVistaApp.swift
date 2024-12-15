@@ -4,7 +4,7 @@ import SwiftUI
 struct GitVistaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(gitHubRepositoriesFactory: GitHubRepositoriesFactory())
         }
     }
 }

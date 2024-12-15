@@ -9,7 +9,9 @@ final class HTTPClient: HTTPClientProtocol {
     let errorsResolver: HTTPErrorsResolver
     let requestBuilder: HTTPRequestBuilder
     
-    init(session: URLSession, errorsResolver: HTTPErrorsResolver, requestBuilder: HTTPRequestBuilder) {
+    init(session: URLSession = .shared,
+         errorsResolver: HTTPErrorsResolver,
+         requestBuilder: HTTPRequestBuilder) {
         self.session = session
         self.errorsResolver = errorsResolver
         self.requestBuilder = requestBuilder

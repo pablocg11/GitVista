@@ -1,13 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    var gitHubRepositoriesFactory: GitHubRepositoriesFactory
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        gitHubRepositoriesFactory.createView()
     }
 }
