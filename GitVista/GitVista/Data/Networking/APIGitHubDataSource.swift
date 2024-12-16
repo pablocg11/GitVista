@@ -2,6 +2,7 @@ import Foundation
 
 protocol APIGitHubDataSourceProtocol {
     func fetchGitHubRepositories(_ username: String) async throws -> Result<[RepositoryDTO], HTTPClientError>
+    func getProfileInfo(_ username: String) async throws -> Result<UserProfileDTO, HTTPClientError> 
 }
 
 final class APIGitHubDataSource: APIGitHubDataSourceProtocol {
@@ -10,6 +11,26 @@ final class APIGitHubDataSource: APIGitHubDataSourceProtocol {
     
     init(httpClient: HTTPClientProtocol) {
         self.httpClient = httpClient
+    }
+    
+    func getProfileInfo(_ username: String) async throws -> Result<UserProfileDTO, HTTPClientError> {
+        let request = HTTPRequest(baseUrl: baseURL,
+                                  path: "\(username)",
+                                  method: .get)
+        
+        let response = await httpClient.makeRequest(request)
+        
+        switch response {
+        case .success(let data):
+            do {
+                let userProfileDTO = try JSONDecoder().decode(UserProfileDTO.self, from: data)
+                return .success(userProfileDTO)
+            } catch {
+                return .failure(.parsingError)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
     }
     
     func fetchGitHubRepositories(_ username: String) async throws -> Result<[RepositoryDTO], HTTPClientError> {

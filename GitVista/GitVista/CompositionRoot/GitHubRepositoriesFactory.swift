@@ -2,22 +2,29 @@ import Foundation
 
 final class GitHubRepositoriesFactory {
     func createView() -> RepositoriesView {
-        let store = createRepositoriesStore()
+        let store = createGitHubStore()
         let presenter = createPresenter(store: store)
         return RepositoriesView(store: store, presenter: presenter)
     }
     
-    private func createPresenter(store: RepositoriesStore) -> RepositoriesPresenter {
-        return RepositoriesPresenter(delegate: store, repository: createGitHubRepositoriesRepository())
+    private func createPresenter(store: GitHubStore) -> GitHubPresenter {
+        return GitHubPresenter(delegate: store,
+                               repositoriesRepository: createGitHubRepositoriesRepository(),
+                               profileRepository: createGitHubUserProfileInfoRepository())
     }
     
-    private func createRepositoriesStore() -> RepositoriesStore {
-        return RepositoriesStore()
+    private func createGitHubStore() -> GitHubStore {
+        return GitHubStore()
     }
     
     private func createGitHubRepositoriesRepository() -> GitHubRepositoriesRepositoryProtocol {
         return GitHubRepositoriesRepository(apiDataSource: createAPIDataSource(),
                                             errorMapper: DomainErrorMapper())
+    }
+    
+    private func createGitHubUserProfileInfoRepository() -> GitHubUserProfileRepository {
+        return GitHubUserProfileRepository(apiDataSource: createAPIDataSource(),
+                                           errorMapper: DomainErrorMapper())
     }
     
     private func createAPIDataSource() -> APIGitHubDataSourceProtocol {

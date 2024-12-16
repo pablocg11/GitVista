@@ -1,26 +1,26 @@
 import Foundation
 
-class RepositoriesStore: ObservableObject {
+class GitHubStore: ObservableObject {
     enum State {
         case loading
         case initial
         case error(message: String)
-        case loaded(repositories: [Repository])
+        case loadedInfo(userProfile: UserProfile, repositories: [Repository])
     }
     
     @Published var state: State = .initial
 }
 
-extension RepositoriesStore: RepositoriesPresenterDelegate {
+extension GitHubStore: GitHubPresenterDelegate {
     func renderLoading() {
         DispatchQueue.main.async {
             self.state = .loading
         }
     }
     
-    func render(repositories: [Repository]) {
+    func renderUserInfo(_ userProfile: UserProfile, repositories: [Repository]) {
         DispatchQueue.main.async {
-            self.state = .loaded(repositories: repositories)
+            self.state = .loadedInfo(userProfile: userProfile, repositories: repositories)
         }
     }
     
