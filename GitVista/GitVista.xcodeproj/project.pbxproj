@@ -15,7 +15,7 @@
 
 /* Begin PBXFileReference section */
 		D6D82CB82D0CE4040078F3F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		D6EE22BF2D1233580059CFA5 /* GitVista.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = GitVista.app; path = "/Users/pcastro/Desktop/My Apps/GitVista/GitVista/build/Debug/GitVista.app"; sourceTree = "<absolute>"; };
+		D6EE22C52D123A330059CFA5 /* GitVista.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitVista.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -58,6 +58,7 @@
 			children = (
 				D6D82CB82D0CE4040078F3F4 /* .swiftlint.yml */,
 				D6D82B7A2D0CE14F0078F3F4 /* GitVista */,
+				D6EE22C52D123A330059CFA5 /* GitVista.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,7 +88,7 @@
 				D6EE22AE2D121C5E0059CFA5 /* FirebaseCrashlytics */,
 			);
 			productName = GitVista;
-			productReference = D6EE22BF2D1233580059CFA5 /* GitVista.app */;
+			productReference = D6EE22C52D123A330059CFA5 /* GitVista.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -308,6 +309,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -350,6 +352,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

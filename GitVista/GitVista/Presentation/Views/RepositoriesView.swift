@@ -51,7 +51,7 @@ struct RepositoriesView: View {
                                     .font(.headline)
                             }
                         case .loading:
-                            LoadingView()
+                            LoadingView(bigSize: true)
                         case .error(let message):
                             ErrorView(errorMessage: message)
                         case .loadedInfo(let userProfileInfo, let repositories):
@@ -85,7 +85,7 @@ struct RepositoriesView: View {
                                             Image(systemName: "arrow.up.arrow.down")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 15, height: 15)
+                                                .frame(width: 20, height: 20)
                                                 .foregroundColor(.white)
                                         }
                                     }
@@ -97,7 +97,16 @@ struct RepositoriesView: View {
                                         LazyVGrid(columns: columns) {
                                             ForEach(repositories, id: \.id) { repository in
                                                 GitHubRepositoryCard(repository: repository)
+                                                    .onAppear {
+                                                        if repository.id == repositories.last?.id {
+                                                            presenter?.fetchMoreRepositories()
+                                                        }
+                                                    }
                                             }
+                                        }
+                                        if store.isLoadingMore {
+                                            Spacer()
+                                            LoadingView(bigSize: false)
                                         }
                                     }
                                     .padding(.bottom, 10)

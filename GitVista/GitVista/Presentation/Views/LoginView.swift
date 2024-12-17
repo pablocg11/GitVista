@@ -93,7 +93,6 @@ struct LoginView: View {
                         print("Error al iniciar sesión con Firebase Auth: \(error.localizedDescription)")
                     } else {
                         print("Autenticación exitosa, usuario: \(String(describing: authResult?.user.email))")
-                        navigateToHome = true
                     }
                 }
             }

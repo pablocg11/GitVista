@@ -1,7 +1,7 @@
 import Foundation
 
 protocol GitHubRepositoriesRepositoryProtocol {
-    func getRepositoriesByUser(_ username: String) async throws -> Result<[Repository], DomainError>
+    func getRepositoriesByUser(_ username: String, page: Int, pageSize: Int) async throws -> Result<[Repository], DomainError>
 }
 
 final class GitHubRepositoriesRepository: GitHubRepositoriesRepositoryProtocol {
@@ -13,8 +13,8 @@ final class GitHubRepositoriesRepository: GitHubRepositoriesRepositoryProtocol {
         self.errorMapper = errorMapper
     }
     
-    func getRepositoriesByUser(_ username: String) async throws -> Result<[Repository], DomainError> {
-        let result = try await apiDataSource.fetchGitHubRepositories(username)
+    func getRepositoriesByUser(_ username: String, page: Int, pageSize: Int) async throws -> Result<[Repository], DomainError> {
+        let result = try await apiDataSource.fetchGitHubRepositories(username, page: page, pageSize: pageSize)
         
         switch result {
         case .success(let repositoriesDTO):
