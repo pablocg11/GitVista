@@ -1,16 +1,20 @@
 import Foundation
 
 class HTTPErrorsResolver {
-    func resolve(errorCode: Int) -> HTTPClientError {
+    func resolve(errorCode: Int, headers: [AnyHashable: Any]) -> HTTPClientError {
         switch errorCode {
         case 200..<300:
             return .generic
-        case 400..<500:
-            if errorCode == 429 {
+        case 403:
+            if let remainingRequests = headers["x-ratelimit-remaining"] as? String, remainingRequests == "0" {
                 return .tooManyRequest
             } else {
-                return .clientError
+                return .clientError 
             }
+        case 429:
+            return .tooManyRequest
+        case 400..<500:
+            return .clientError
         case 500..<600:
             return .serverError
         default:

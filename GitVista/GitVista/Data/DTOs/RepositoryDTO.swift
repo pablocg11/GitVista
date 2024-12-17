@@ -4,6 +4,7 @@ struct RepositoryDTO: Codable {
     let id: Int
     let name: String
     let createdAt: String
+    let updatedAt: String
     let isPrivate: Bool
     let owner: OwnerDTO
     let htmlUrl: String
@@ -17,6 +18,7 @@ struct RepositoryDTO: Codable {
     enum CodingKeys: String, CodingKey {
         case id, name, owner, description, language, visibility, fork, watchers
         case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case isPrivate = "private"
         case htmlUrl = "html_url"
         case starsCount = "stargazers_count"

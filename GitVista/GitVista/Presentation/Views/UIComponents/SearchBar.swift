@@ -5,12 +5,17 @@ struct SearchBar: View {
     @State var searchAction: () -> Void
     var body: some View {
         HStack {
-            TextField("Enter a GitHub username", text: $searchText)
+            TextField("",
+                      text: $searchText,
+                      prompt: Text("Enter a GitHub username")
+                        .foregroundColor(.white.opacity(0.6)))
                 .accentColor(.white)
                 .font(.callout)
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
-            
+                .onSubmit {
+                    searchAction()
+                }
             Button(action: {
                 searchAction()
             }, label: {

@@ -30,7 +30,7 @@ final class HTTPClient: HTTPClientProtocol {
             }
             
             guard response.statusCode == 200 else {
-                return .failure(errorsResolver.resolve(errorCode: response.statusCode))
+                return .failure(errorsResolver.resolve(errorCode: response.statusCode, headers: response.allHeaderFields))
             }
             
             return .success(result.0)

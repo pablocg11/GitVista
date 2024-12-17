@@ -8,16 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		D6D82CB92D0CE40D0078F3F4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D6D82CB82D0CE4040078F3F4 /* .swiftlint.yml */; };
+		D6EE22902D11FC310059CFA5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D6EE228F2D11FC310059CFA5 /* Lottie */; };
+		D6EE22AD2D121C5E0059CFA5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D6EE22AC2D121C5E0059CFA5 /* FirebaseAuth */; };
+		D6EE22AF2D121C5E0059CFA5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D6EE22AE2D121C5E0059CFA5 /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D6D82B782D0CE14F0078F3F4 /* GitVista.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitVista.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D82CB82D0CE4040078F3F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D6EE22BF2D1233580059CFA5 /* GitVista.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = GitVista.app; path = "/Users/pcastro/Desktop/My Apps/GitVista/GitVista/build/Debug/GitVista.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D6EE22C22D1234510059CFA5 /* Exceptions for "GitVista" folder in "GitVista" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D6D82B772D0CE14F0078F3F4 /* GitVista */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D6D82B7A2D0CE14F0078F3F4 /* GitVista */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D6EE22C22D1234510059CFA5 /* Exceptions for "GitVista" folder in "GitVista" target */,
+			);
 			path = GitVista;
 			sourceTree = "<group>";
 		};
@@ -28,6 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6EE22AF2D121C5E0059CFA5 /* FirebaseCrashlytics in Frameworks */,
+				D6EE22902D11FC310059CFA5 /* Lottie in Frameworks */,
+				D6EE22AD2D121C5E0059CFA5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,16 +58,7 @@
 			children = (
 				D6D82CB82D0CE4040078F3F4 /* .swiftlint.yml */,
 				D6D82B7A2D0CE14F0078F3F4 /* GitVista */,
-				D6D82B792D0CE14F0078F3F4 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		D6D82B792D0CE14F0078F3F4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D6D82B782D0CE14F0078F3F4 /* GitVista.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -72,9 +82,12 @@
 			);
 			name = GitVista;
 			packageProductDependencies = (
+				D6EE228F2D11FC310059CFA5 /* Lottie */,
+				D6EE22AC2D121C5E0059CFA5 /* FirebaseAuth */,
+				D6EE22AE2D121C5E0059CFA5 /* FirebaseCrashlytics */,
 			);
 			productName = GitVista;
-			productReference = D6D82B782D0CE14F0078F3F4 /* GitVista.app */;
+			productReference = D6EE22BF2D1233580059CFA5 /* GitVista.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -101,8 +114,12 @@
 			);
 			mainGroup = D6D82B6F2D0CE14F0078F3F4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D6EE228E2D11FC310059CFA5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				D6EE22AB2D121C5E0059CFA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = D6D82B792D0CE14F0078F3F4 /* Products */;
+			productRefGroup = D6D82B6F2D0CE14F0078F3F4;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -284,6 +301,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GitVista/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -294,7 +312,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -325,6 +343,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GitVista/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -335,7 +354,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
@@ -374,6 +393,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D6EE228E2D11FC310059CFA5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+		D6EE22AB2D121C5E0059CFA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D6EE228F2D11FC310059CFA5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EE228E2D11FC310059CFA5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		D6EE22AC2D121C5E0059CFA5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EE22AB2D121C5E0059CFA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D6EE22AE2D121C5E0059CFA5 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EE22AB2D121C5E0059CFA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6D82B702D0CE14F0078F3F4 /* Project object */;
 }

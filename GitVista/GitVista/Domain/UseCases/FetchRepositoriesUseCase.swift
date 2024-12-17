@@ -1,7 +1,7 @@
 import Foundation
 
 protocol FetchRepositoriesUseCaseProtocol {
-    func exectute(_ username: String) async throws -> Result<[Repository], DomainError>
+    func execute(_ username: String) async throws -> Result<[Repository], DomainError>
 }
 
 final class FetchRepositoriesUseCase: FetchRepositoriesUseCaseProtocol {
@@ -11,7 +11,7 @@ final class FetchRepositoriesUseCase: FetchRepositoriesUseCaseProtocol {
         self.repository = repository
     }
     
-    func exectute(_ username: String) async throws -> Result<[Repository], DomainError> {
+    func execute(_ username: String) async throws -> Result<[Repository], DomainError> {
         return try await repository.getRepositoriesByUser(username)
     }
 }

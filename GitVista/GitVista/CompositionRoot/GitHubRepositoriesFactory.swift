@@ -9,12 +9,21 @@ final class GitHubRepositoriesFactory {
     
     private func createPresenter(store: GitHubStore) -> GitHubPresenter {
         return GitHubPresenter(delegate: store,
-                               repositoriesRepository: createGitHubRepositoriesRepository(),
-                               profileRepository: createGitHubUserProfileInfoRepository())
+                               fetchRepositoriesUseCase: createFetchGitHubRepositoriesUseCase(),
+                               getUserProfileInfoUseCase: createGetGitHubUserProfileInfoUseCase(),
+                               presentationErrorMapper: PresentationErrorMapper())
     }
     
     private func createGitHubStore() -> GitHubStore {
         return GitHubStore()
+    }
+    
+    private func createFetchGitHubRepositoriesUseCase() -> FetchRepositoriesUseCaseProtocol {
+        return FetchRepositoriesUseCase(repository: createGitHubRepositoriesRepository())
+    }
+    
+    private func createGetGitHubUserProfileInfoUseCase() -> GetUserProfileInfoUseCaseProtocol {
+        return GetUserProfileInfoUseCase(repository: createGitHubUserProfileInfoRepository())
     }
     
     private func createGitHubRepositoriesRepository() -> GitHubRepositoriesRepositoryProtocol {

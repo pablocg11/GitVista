@@ -1,5 +1,3 @@
-import Foundation
-
 enum DomainError: Error {
     case invalidUsername
     case invalidRepository
@@ -13,4 +11,6 @@ enum DomainError: Error {
     case rateLimitExceeded
     case unknownError
     case parsingError
+    case noDataAvailable
+    case validationError(message: String) 
 }

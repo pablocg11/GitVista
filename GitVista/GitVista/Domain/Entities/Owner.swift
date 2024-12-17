@@ -1,6 +1,6 @@
 import Foundation
 
-struct Owner {
+struct Owner: Equatable {
     let id: Int
     let userName: String
     let htmlUserUrl: String

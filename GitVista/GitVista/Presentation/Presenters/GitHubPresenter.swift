@@ -3,19 +3,22 @@ import Foundation
 final class GitHubPresenter {
     private weak var delegate: GitHubPresenterDelegate?
     private var username: String = ""
-    private let repositoriesRepository: GitHubRepositoriesRepositoryProtocol
-    private let profileRepository: GitHubUserProfileRepositoryProtocol
+    private let fetchRepositoriesUseCase: FetchRepositoriesUseCaseProtocol
+    private let getUserProfileInfoUseCase: GetUserProfileInfoUseCaseProtocol
+    private let presentationErrorMapper: PresentationErrorMapper
 
     private var cachedUserProfile: UserProfile?
-    private var cachedRepositories: [Repository] = [] 
+    private var cachedRepositories: [Repository] = []
 
     init(delegate: GitHubPresenterDelegate,
-         repositoriesRepository: GitHubRepositoriesRepositoryProtocol,
-         profileRepository: GitHubUserProfileRepositoryProtocol
+         fetchRepositoriesUseCase: FetchRepositoriesUseCaseProtocol,
+         getUserProfileInfoUseCase: GetUserProfileInfoUseCaseProtocol,
+         presentationErrorMapper: PresentationErrorMapper
     ) {
         self.delegate = delegate
-        self.repositoriesRepository = repositoriesRepository
-        self.profileRepository = profileRepository
+        self.fetchRepositoriesUseCase = fetchRepositoriesUseCase
+        self.getUserProfileInfoUseCase = getUserProfileInfoUseCase
+        self.presentationErrorMapper = presentationErrorMapper
     }
 
     func updateUsername(_ username: String) {
@@ -28,7 +31,7 @@ final class GitHubPresenter {
 
     func fetchUserInfo() {
         guard !username.isEmpty else {
-            delegate?.render(errorMessage: "Please enter a username.")
+            handleError(.validationError(message: "Please enter a username."))
             return
         }
 
@@ -38,42 +41,41 @@ final class GitHubPresenter {
             do {
                 try await withThrowingTaskGroup(of: Void.self) { group in
                     group.addTask {
-                        let result = try await self.profileRepository.getUserProfileInfo(self.username)
+                        let result = try await self.getUserProfileInfoUseCase.execute(self.username)
                         switch result {
                         case .success(let profile):
                             self.cachedUserProfile = profile
-                        case .failure:
-                            throw DomainError.userNotFound
+                        case .failure(let error):
+                            self.handleError(error)
                         }
                     }
 
                     group.addTask {
-                        let result = try await self.repositoriesRepository.getRepositoriesByUser(self.username)
+                        let result = try await self.fetchRepositoriesUseCase.execute(self.username)
                         switch result {
                         case .success(let repositories):
                             self.cachedRepositories = repositories
-                        case .failure:
-                            throw DomainError.noRepositories
+                        case .failure(let error):
+                            self.handleError(error)
                         }
                     }
 
                     try await group.waitForAll()
+                    if let profile = cachedUserProfile, !cachedRepositories.isEmpty {
+                        delegate?.renderUserInfo(profile, repositories: cachedRepositories)
+                    }
                 }
-
-                if let profile = cachedUserProfile {
-                    delegate?.renderUserInfo(profile, repositories: cachedRepositories)
-                } else {
-                    delegate?.render(errorMessage: "Failed to fetch user profile.")
-                }
+            } catch let error as DomainError {
+                handleError(error)
             } catch {
-                delegate?.render(errorMessage: "Failed to fetch data: \(error.localizedDescription)")
+                handleError(.unknownError)
             }
         }
     }
 
     func sortByStars() {
         guard let profile = cachedUserProfile, !cachedRepositories.isEmpty else {
-            delegate?.render(errorMessage: "No data available to sort.")
+            handleError(.noDataAvailable)
             return
         }
 
@@ -83,21 +85,26 @@ final class GitHubPresenter {
 
     func sortAlphabetically() {
         guard let profile = cachedUserProfile, !cachedRepositories.isEmpty else {
-            delegate?.render(errorMessage: "No data available to sort.")
+            handleError(.noDataAvailable)
             return
         }
 
         let sortedRepositories = cachedRepositories.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
         delegate?.renderUserInfo(profile, repositories: sortedRepositories)
     }
-
-    func sortByWatchers() {
+    
+    func sortByDate() {
         guard let profile = cachedUserProfile, !cachedRepositories.isEmpty else {
-            delegate?.render(errorMessage: "No data available to sort.")
+            handleError(.noDataAvailable)
             return
         }
 
-        let sortedRepositories = cachedRepositories.sorted { $0.watchers > $1.watchers }
+        let sortedRepositories = cachedRepositories.sorted { $0.updatedAt > $1.updatedAt }
         delegate?.renderUserInfo(profile, repositories: sortedRepositories)
+    }
+
+    private func handleError(_ error: DomainError) {
+        let errorMessage = presentationErrorMapper.map(error: error)
+        delegate?.render(errorMessage: errorMessage)
     }
 }

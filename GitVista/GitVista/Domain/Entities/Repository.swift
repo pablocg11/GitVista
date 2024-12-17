@@ -1,9 +1,10 @@
 import Foundation
 
-struct Repository {
+struct Repository: Equatable {
     let id: Int
     let name: String
     let createdAt: Date
+    let updatedAt: Date
     let isPrivate: Bool
     let owner: Owner
     let htmlUrl: String
@@ -19,6 +20,7 @@ struct Repository {
         id: Int,
         name: String,
         createdAt: Date,
+        updateAt: Date,
         isPrivate: Bool,
         owner: Owner,
         htmlUrl: String,
@@ -32,6 +34,7 @@ struct Repository {
         self.id = id
         self.name = name
         self.createdAt = createdAt
+        self.updatedAt = updateAt
         self.isPrivate = isPrivate
         self.owner = owner
         self.htmlUrl = htmlUrl
@@ -47,6 +50,7 @@ struct Repository {
         self.id = dto.id
         self.name = dto.name
         self.createdAt = ISO8601DateFormatter().date(from: dto.createdAt) ?? Date()
+        self.updatedAt = ISO8601DateFormatter().date(from: dto.updatedAt) ?? Date()
         self.isPrivate = dto.isPrivate
         self.owner = Owner(dto: dto.owner)
         self.htmlUrl = dto.htmlUrl

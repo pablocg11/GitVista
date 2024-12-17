@@ -5,12 +5,25 @@ struct GitHubRepositoryCard: View {
     var body: some View {
         Link(destination: URL(string: repository.htmlUrl)!) {
             VStack(alignment: .leading, spacing: 8) {
-                Text(repository.name)
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+                HStack {
+                    Text(repository.name)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer()
+                    
+                    Text(repository.visibility?.uppercased() ?? "")
+                        .font(.system(size: 8))
+                        .padding(4)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.white, lineWidth: 0.5)
+                        )
+                }
                 
                 Text(repository.description ?? "No description.")
                     .font(.caption)
@@ -54,7 +67,7 @@ struct GitHubRepositoryCard: View {
             }
             .multilineTextAlignment(.leading)
             .padding(10)
-            .frame(width: 180, height: 160)
+            .frame(width: 170, height: 150)
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
             .shadow(color: Color.white.opacity(0.2), radius: 5, x: 0, y: 3)
@@ -65,27 +78,4 @@ struct GitHubRepositoryCard: View {
             )
         }
     }
-}
-
-#Preview {
-    GitHubRepositoryCard(repository: Repository(
-        id: 1,
-        name: "AwesomeProject",
-        createdAt: Date(),
-        isPrivate: false,
-        owner: Owner(
-            id: 123,
-            userName: "octocat",
-            htmlUserUrl: "https://github.com/octocat",
-            avatarUrl: "https://github.com/images/error/octocat_happy.gif",
-            type: "User"
-        ),
-        htmlUrl: "https://github.com/octocat/AwesomeProject",
-        description: "A great project that solves a lot of problems in a simple way.",
-        language: "Swift",
-        visibility: "public",
-        fork: false,
-        watchers: 42,
-        starsCount: 128
-    ))
 }
