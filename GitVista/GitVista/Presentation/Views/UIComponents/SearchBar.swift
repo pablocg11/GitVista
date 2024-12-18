@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var searchText: String 
-    @State var searchAction: () -> Void
+    var searchAction: () -> Void
     var body: some View {
         HStack {
             TextField("",
@@ -14,13 +14,16 @@ struct SearchBar: View {
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
                 .onSubmit {
-                    searchAction()
+                    if !searchText.isEmpty {
+                        searchAction()
+                    }
                 }
             Button(action: {
                 searchAction()
             }, label: {
                 Image(systemName: "magnifyingglass")
             })
+            .disabled(searchText.isEmpty)
         }
         .foregroundStyle(.white)
         .padding()

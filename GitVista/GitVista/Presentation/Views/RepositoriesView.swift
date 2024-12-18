@@ -1,8 +1,10 @@
 import SwiftUI
+import Lottie
 
 struct RepositoriesView: View {
     @ObservedObject private var store: GitHubStore
-    @State private var isVisible = false
+    @State private var isInitialVisible = false
+    @State private var isLoadedVisible = false
     private var presenter: GitHubPresenter?
 
     init(store: GitHubStore, presenter: GitHubPresenter) {
@@ -31,7 +33,6 @@ struct RepositoriesView: View {
                                 set: { presenter?.updateUsername($0) }
                             ),
                             searchAction: {
-                                isVisible = false
                                 presenter?.fetchUserInfo()
                             }
                         )
@@ -41,14 +42,34 @@ struct RepositoriesView: View {
                         
                         switch store.state {
                         case .initial:
-                            VStack(spacing: 10) {
-                                Image(systemName: "magnifyingglass")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.gray)
-                                Text("Search GitHub repositories")
-                                    .foregroundColor(.gray)
-                                    .font(.headline)
+                            VStack(spacing: 50) {
+                                LottieView(animation: .named("githubAnimation"))
+                                    .configure(\.contentMode, to: .scaleAspectFit)
+                                    .playing(loopMode: .loop)
+                                    .animationSpeed(0.8)
+                                    .frame(maxWidth: 400, maxHeight: 300)
+                                    .opacity(isInitialVisible ? 1 : 0)
+                                    .animation(.easeOut(duration: 0.9).delay(0.1), value: isInitialVisible)
+                                VStack(spacing: 5) {
+                                    Text("Welcome to GitVista")
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .multilineTextAlignment(.center)
+                                        .opacity(isInitialVisible ? 1 : 0)
+                                        .animation(.easeOut(duration: 0.9).delay(0.3), value: isInitialVisible)
+                                    
+                                    Text("Sign in to discover repositories, users, and more!")
+                                        .font(.subheadline)
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal)
+                                        .opacity(isInitialVisible ? 1 : 0)
+                                        .animation(.easeOut(duration: 0.9).delay(0.5), value: isInitialVisible)
+                                }
+                            }
+                            .onAppear {
+                                isInitialVisible = true
                             }
                         case .loading:
                             LoadingView(bigSize: true)
@@ -62,8 +83,8 @@ struct RepositoriesView: View {
                                 VStack(alignment: .leading, spacing: 10) {
                                     UserProfileCard(userProfile: userProfileInfo)
                                         .padding(.bottom)
-                                        .opacity(isVisible ? 1 : 0)
-                                        .animation(.easeOut(duration: 0.9).delay(0.2), value: isVisible)
+                                        .opacity(isLoadedVisible ? 1 : 0)
+                                        .animation(.easeOut(duration: 0.9).delay(0.2), value: isLoadedVisible)
                                     
                                     HStack(alignment: .center) {
                                         Text("Repositories")
@@ -78,7 +99,7 @@ struct RepositoriesView: View {
                                             Button("Sort alphabetically") {
                                                 presenter?.sortAlphabetically()
                                             }
-                                            Button("Sort by date") {
+                                            Button("Sort by updated date") {
                                                 presenter?.sortByDate()
                                             }
                                         } label: {
@@ -90,8 +111,8 @@ struct RepositoriesView: View {
                                         }
                                     }
                                     .padding(.bottom, 8)
-                                    .opacity(isVisible ? 1 : 0)
-                                    .animation(.easeOut(duration: 0.9).delay(0.4), value: isVisible)
+                                    .opacity(isLoadedVisible ? 1 : 0)
+                                    .animation(.easeOut(duration: 0.9).delay(0.4), value: isLoadedVisible)
                                     
                                     ScrollView {
                                         LazyVGrid(columns: columns) {
@@ -110,12 +131,12 @@ struct RepositoriesView: View {
                                         }
                                     }
                                     .padding(.bottom, 10)
-                                    .opacity(isVisible ? 1 : 0)
-                                    .animation(.easeOut(duration: 0.9).delay(0.4), value: isVisible)
+                                    .opacity(isLoadedVisible ? 1 : 0)
+                                    .animation(.easeOut(duration: 0.9).delay(0.4), value: isLoadedVisible)
                                     .scrollIndicators(.hidden)
                                 }
                                 .onAppear {
-                                    isVisible = true
+                                    isLoadedVisible = true
                                 }
                             }
                         }
