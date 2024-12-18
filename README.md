@@ -26,12 +26,6 @@ The app integrates with the **GitHub REST API** to fetch repository data for any
 - **Dependency Injection**: Manages dependencies through a composition root for better testability. ⚙️
 
 ## Screenshots 📸
-![1](https://github.com/user-attachments/assets/392d627c-e704-40b8-b4df-5b20eee364ab)
-
-![2](https://github.com/user-attachments/assets/0e458af4-7ec3-482e-806c-68730e84ace4)
-
-![4](https://github.com/user-attachments/assets/2cf4103d-483a-4b9a-8fab-78e49ca92029)
-
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/392d627c-e704-40b8-b4df-5b20eee364ab" alt="Home Screen" width="200"/>
