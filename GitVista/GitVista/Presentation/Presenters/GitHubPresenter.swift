@@ -2,7 +2,7 @@ import Foundation
 
 final class GitHubPresenter {
     private weak var delegate: GitHubPresenterDelegate?
-    private var username: String = ""
+    @Published private var username: String = ""
     private let fetchRepositoriesUseCase: FetchRepositoriesUseCaseProtocol
     private let getUserProfileInfoUseCase: GetUserProfileInfoUseCaseProtocol
     private let presentationErrorMapper: PresentationErrorMapper
@@ -48,6 +48,9 @@ final class GitHubPresenter {
         Task {
             do {
                 try await loadUserProfileAndRepositories()
+                if cachedRepositories.count < pageSize {
+                    canLoadMore = false
+                }
             } catch let error as DomainError {
                 handleError(error)
             } catch {
